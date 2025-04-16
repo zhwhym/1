@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中哈网络文化研习社</title>
+    <link real="/web">
+    <style>
+        /* 基础样式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        /* 白色导航栏 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #4285f4;
+        }
+        
+        /* 简洁导航菜单 */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 2rem;
+        }
+        
+        nav a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #4285f4;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #4285f4;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        /* 主要内容区 */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        /* 新闻卡片 */
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 1.5rem;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background: #f1f3f4;
+            color: #4285f4;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #222;
+        }
+        
+        .news-summary {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .news-meta {
+            display: flex;
+            align-items: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .news-date {
+            margin-right: 1rem;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .read-more:hover {
+            color: #3367d6;
+        }
+        
+        /* 新闻网格布局 */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #4285f4;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+            }
+            
+            nav li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-section {
+                flex: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 白色导航栏 -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">文化<span>数据库</span></a>
+            <nav>
+                <ul>
+                    <li><a href="https://yuteng0412.github.io/cyt/">首页</a></li>
+                    <li><a href="https://yuteng0412.github.io/shouye2/">文化</a></li>
+                    <li><a href="https://yuteng0412.github.io/shouye3/">民俗</a></li>
+                    <li><a href="https://yuteng0412.github.io/shouye4/">最新新闻</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container">
+        <h1 style="font-weight: normal; margin-bottom: 1rem;">最新动态</h1>
+        <p style="color: #666; margin-bottom: 2rem;">为您精选哈萨克斯坦最新资讯</p>
+        
+        <!-- 头条新闻 -->
+        <article class="news-card">
+            <div class="news-content">
+                <span class="news-category">网络文化</span>
+                <h2 class="news-title">中哈网络文化的镜像与交融</h2>
+                <p class="news-summary">在数字化的浪潮中，网络语言不仅是沟通的工具，更是文化的载体。中国与哈萨克斯坦作为“一带一路”上的重要邻邦，其网络语言的发展既体现了各自的文化特色，也反映了全球化背景下的文化交融。.</p>
+                <div class="news-meta">
+                    <span class="news-date">2025年02月02日</span>
+                    <span>来源 中哈网络文化研习社</span>
+                </div>
+                <a href="文本页面.html" class="read-more">阅读全文 →</a>
+            </div>
+        </article>
+        
+        <!-- 新闻网格 -->
+        <div class="news-grid">
+            <article class="news-card">
+                <div class="news-content">
+                    <span class="news-category">财经</span>
+                    <h2 class="news-title">央行宣布降准0.25个百分点，释放长期资金约5000亿元</h2>
+                    <p class="news-summary">中国人民银行决定下调金融机构存款准备金率0.25个百分点，此次降准将释放长期资金约5000亿元，以保持流动性合理充裕...</p>
+                    <div class="news-meta">
+                        <span class="news-date">2023年8月14日</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-content">
+                    <span class="news-category">科技</span>
+                    <h2 class="news-title">新一代人工智能芯片发布，计算性能提升3倍</h2>
+                    <p class="news-summary">国内科技企业今日发布最新一代AI芯片，采用7纳米工艺制程，计算性能较上一代提升300%，能效比提升40%，将应用于云计算和边缘计算领域...</p>
+                    <div class="news-meta">
+                        <span class="news-date">2023年8月13日</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </div>
+            </article>
+            
+            <article class="news-card">
+                <div class="news-content">
+                    <span class="news-category">时政</span>
+                    <h2 class="news-title">联合国气候大会达成新协议，各国承诺加大减排力度</h2>
+                    <p class="news-summary">第28届联合国气候变化大会今日闭幕，与会各国达成新协议，承诺到2030年将全球温室气体排放量减少45%，较此前目标提高15个百分点...</p>
+                    <div class="news-meta">
+                        <span class="news-date">2023年8月12日</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <ul>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">加入团队</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                
+                
+            </div>
+            <div class="footer-section">
+                <ul>
+                  
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>关注我们</h3>
+                <ul>
+                    <li><a href="">微信公众号：中哈文化研习社</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy;2025 简讯新闻</p>
+        </div>
+    </footer>
+</body>
+</html>
